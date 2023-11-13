@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
 
-const TaskForm = ({ onCancel, submitForm }: any) =>{
+const TaskForm = ({ onCacelForm, onAddTask }: any) =>{
 
     const { register, handleSubmit, reset, } = useForm();
 
   const onSubmit = (data: any) => {
     // Handle form submission logic here
     console.log(data);
-    submitForm(data)
+    onAddTask(data)
     reset()
   };
 
@@ -46,7 +46,7 @@ const TaskForm = ({ onCancel, submitForm }: any) =>{
           <button
             className="bg-gray-400 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
-            onClick={onCancel}
+            onClick={onCacelForm}
           >
             Cancel
           </button>
