@@ -46,7 +46,7 @@ const TaskForm = ({ onCancel, submitForm }: any) =>{
           <button
             className="bg-gray-400 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
-            onClick={}
+            onClick={onCancel}
           >
             Cancel
           </button>
