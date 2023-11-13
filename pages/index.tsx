@@ -25,12 +25,12 @@ const Home: NextPage = () => {
   return (
     <div>
       
-      {!displayForm && <div style={{ display: 'flex', justifyContent: 'center', }}>
-        <button onClick={() => setDisplayForm(true)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+       <div style={{ display: 'flex', justifyContent: 'center', }}>
+    
+       {!displayForm &&  <button onClick={() => setDisplayForm(true)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
           Add Task
-      </button>
-      </div>}
-
+          </button>
+        }
       {
         displayForm && 
           <TaskForm
@@ -38,6 +38,9 @@ const Home: NextPage = () => {
             onCacelForm={onCacelForm}
           />
       }
+      </div>
+
+
 
     </div>
   )
