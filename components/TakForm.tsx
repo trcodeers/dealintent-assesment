@@ -1,50 +1,46 @@
 import { useForm } from "react-hook-form";
 
-const TaskForm = ({ onCacelForm, onAddTask }: any) =>{
-
-    const { register, handleSubmit, reset, } = useForm();
+const TaskForm = ({ onCacelForm, onAddTask }: any) => {
+  const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = (data: any) => {
     // Handle form submission logic here
     console.log(data);
-    onAddTask(data)
-    reset()
+    onAddTask(data);
+    reset();
   };
 
   return (
-      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/3" onSubmit={handleSubmit(onSubmit)}>
-
-<div style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
-
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
-            Name
-          </label>
+    <form
+      className="bg-white rounded mb-4"
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
+        <div>
           <input
             className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outlin`}
             id="name"
             type="text"
-            placeholder="Enter your name"
-            {...register('name', { required: 'Name is required' })}
+            placeholder="Task"
+            {...register("name", { required: "Name is required" })}
           />
         </div>
 
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
-            Description
-          </label>
+        <div>
           <textarea
             className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-none `}
             id="description"
-            placeholder="Enter your description"
+            placeholder="Description"
             rows={1}
-            {...register('description', { required: 'Description is required' })}
+            {...register("description", {
+              required: "Description is required",
+            })}
           />
         </div>
 
         <div className="flex items-center justify-between">
           <button
-            className="bg-gray-400 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-gray-400 text-black py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
             onClick={onCacelForm}
           >
@@ -60,11 +56,9 @@ const TaskForm = ({ onCacelForm, onAddTask }: any) =>{
             Submit
           </button>
         </div>
-</div>
-
-      </form>
-
-  )
-}
+      </div>
+    </form>
+  );
+};
 
 export default TaskForm;
