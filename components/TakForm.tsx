@@ -13,7 +13,6 @@ const TaskForm = ({ onCacelForm, onAddTask }: any) => {
   }, []);
   
   const onSubmit = (data: any) => {
-    // Handle form submission logic here
     console.log(data);
     onAddTask(data);
     reset();

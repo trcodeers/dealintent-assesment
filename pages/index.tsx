@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import TaskForm from "../components/TakForm";
 import KanbanCard from "../components/KanbanCard";
 import dynamic from "next/dynamic";
+import { TaskData, TaskItem } from "../types/items";
 
 const DragDropContext = dynamic(
   () =>
@@ -29,7 +30,7 @@ const Draggable = dynamic(
 const Home: NextPage = () => {
   const [displayForm, setDisplayForm] = useState<boolean>(false);
 
-  const [itemsTodo, setItemsTodo] = useState<Array<any>>([
+  const [itemsTodo, setItemsTodo] = useState<Array<TaskItem>>([
     {
       id: "1",
       name: "Name 1",
@@ -47,9 +48,9 @@ const Home: NextPage = () => {
       description: "This is a description 3 of name 3",
     },
   ]);
-  const [filteredTodoItems, setFilteredTodoItems] = useState<Array<any> | undefined>()
+  const [filteredTodoItems, setFilteredTodoItems] = useState<Array<TaskItem> | undefined>()
 
-  const [itemsInProgress, setItemsInProgress] = useState<Array<any>>([
+  const [itemsInProgress, setItemsInProgress] = useState<Array<TaskItem>>([
     {
       id: "4",
       name: "Name 4",
@@ -63,7 +64,7 @@ const Home: NextPage = () => {
   ]);
   const [filteredInProgress, setFilteredInProgress] = useState()
 
-  const [itemsCompleted, setItemsCompleted] = useState<Array<any>>([
+  const [itemsCompleted, setItemsCompleted] = useState<Array<TaskItem>>([
     {
       id: "5",
       name: "Name 5",
@@ -177,13 +178,13 @@ const Home: NextPage = () => {
 
   };
 
-  const getItemStyle = (isDragging: any, draggableStyle: any): any => ({
+  const getItemStyle = (isDragging: boolean, draggableStyle: any): any => ({
     userSelect: "none",
     margin: `0 0 ${8}px 0`,
     ...draggableStyle,
   });
 
-  const getListStyle = (isDraggingOver: any): any => ({
+  const getListStyle = (isDraggingOver: boolean): {[key: string]: any} => ({
     padding: 8,
     width: 280,
     minHeight: "600px",
@@ -191,9 +192,9 @@ const Home: NextPage = () => {
     marginRight: 30,
   });
 
-  const onAddTask = (data: any) => {
+  const onAddTask = (data: TaskData) => {
     console.log(data);
-    const newTask = {
+    const newTask : TaskItem = {
       id: (
         itemsTodo.length +
         itemsInProgress.length +
@@ -202,14 +203,14 @@ const Home: NextPage = () => {
       ).toString(),
       ...data,
     };
-    setItemsTodo([newTask, ...itemsTodo]);
+    setItemsTodo([ newTask, ...itemsTodo ]);
   };
 
   const onCacelForm = () => {
     setDisplayForm(false);
   };
 
-  const onSearchInput = (e: any) => {
+  const onSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setSearchValue(value)
     if(!value){
