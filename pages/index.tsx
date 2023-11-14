@@ -55,6 +55,11 @@ const Home: NextPage = () => {
       name: "Name 4",
       description: "This is a description 4 of name 4",
     },
+    {
+      id: "6",
+      name: "Name 6",
+      description: "This is a description 6 of name 6",
+    },
   ]);
   const [filteredInProgress, setFilteredInProgress] = useState()
 
@@ -95,24 +100,30 @@ const Home: NextPage = () => {
       console.log("cl todo", source.droppableId);
       if (source.droppableId === "todo") {
         const item = itemsTodo[source.index];
-        console.log(item);
+        // console.log(item);
         itemsTodo.splice(source.index, 1);
-        console.log(itemsTodo);
+        // console.log(itemsTodo);
         itemsTodo.splice(destination.index, 0, item);
-        console.log(itemsTodo);
+        // console.log(itemsTodo);
         setItemsTodo([...itemsTodo]);
-      } else {
+      } else if(source.droppableId === "inProgress"){
         const item = itemsInProgress[source.index];
         itemsInProgress.splice(source.index, 1);
-        itemsInProgress[source.index] = item;
+        itemsInProgress.splice(destination.index, 0, item);
         setItemsInProgress([...itemsInProgress]);
+      }
+      else if(source.droppableId === "completed"){
+        const item = itemsCompleted[source.index];
+        itemsCompleted.splice(source.index, 1);
+        itemsCompleted.splice(destination.index, 0, item);
+        setItemsInProgress([...itemsCompleted]);
       }
       return;
     }
 
     // Select the appropriate source and destination columns based on droppableIds
-    let sourceColumn: Array<any> = [],
-      destinationColumn: Array<any> = [];
+    let sourceColumn: Array<any> = []
+    let destinationColumn: Array<any> = [];
 
     if (source.droppableId === "todo") {
       console.log("case 3");
@@ -163,11 +174,7 @@ const Home: NextPage = () => {
     } else if (destination.droppableId === "completed") {
       setItemsCompleted([...destinationColumn]);
     }
-    // /if searched, filter again
-    if(searchValue) {
-      console.log('Searched value', searchValue)
-      filterOnSearch(searchValue)
-    }
+
   };
 
   const getItemStyle = (isDragging: any, draggableStyle: any): any => ({
