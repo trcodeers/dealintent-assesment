@@ -71,7 +71,7 @@ const Home: NextPage = () => {
 
   useEffect(() =>{
     if(searchValue){
-      console.log('enable again')
+      console.log('enable again', itemsTodo)
       filterOnSearch(searchValue)
     }
   }, [itemsTodo, itemsInProgress, itemsCompleted])
