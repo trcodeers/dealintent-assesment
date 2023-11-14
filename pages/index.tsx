@@ -190,7 +190,7 @@ const Home: NextPage = () => {
     setFilteredItemsCompleted(completedFilter);
   };
 
-  const onDelete = (item: any, index: number, status: string) => {
+  const onDelete = (item: TaskItem, index: number, status: string) => {
     if (status === "TODO") {
       itemsTodo.splice(index, 1);
       setItemsTodo([...itemsTodo]);
