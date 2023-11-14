@@ -20,8 +20,8 @@ const Home: NextPage = () => {
   const [itemsTodo, setItemsTodo] = useState<Array<TaskItem>>([
     {
       id: "1",
-      name: "Name 1",
-      description: "This is a description 1 of name 1",
+      name: "Name 1 m m m m m m m m m m  m m m",
+      description: "This is a description 1 of name 1 mmmmmmm,,,,,,jhb hjbjhbjhbkjbkjbnk ",
       date: "2023-11-12",
     },
     {
