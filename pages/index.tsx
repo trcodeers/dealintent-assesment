@@ -164,7 +164,6 @@ const Home: NextPage = () => {
   });
 
   const getListStyle = (isDraggingOver: any): any => ({
-    background: isDraggingOver ? "lightblue" : "lightgrey",
     padding: 8,
     width: 280,
     minHeight: "600px",
