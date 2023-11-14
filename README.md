@@ -1,34 +1,32 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+ <h6>About Project</h6>
+ This is an example of a kanban board. 
+ This contains three columns.
+  1. Todo
+  2. In progress
+  3. Completed
 
-First, run the development server:
+<h6>Task </h6>
+Each task contains three data
+  1. Name of task
+  2. Description of task
+  3. Due date of task(Optional)
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+Each task is presented in the form of a card on the UI.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The card can be shifted from one task status to another by dragging and dropping.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+<h6>New Task</h6>
+A new task can be created by clicking the button 'Add task', which is in the center of the top. After clicking on the button a new form is opened having three fileds name, description, and due date which is optional.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+A newly created task is located in the To-Do column, right after creating of task.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+There is a delete icon in the bottom right corner, clicking on that will remove the card from the board.
 
-## Learn More
+<h6>Tech Stack,/h6>
+1. Next JS
+2. Tailwind CSS
+3. react-beautiful-dnd library
+4. React icons
+5. react-hook-form library
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
