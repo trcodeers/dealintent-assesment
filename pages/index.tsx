@@ -1,28 +1,15 @@
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import TaskForm from "../components/TakForm";
-import KanbanCard from "../components/KanbanCard";
 import dynamic from "next/dynamic";
 import { TaskData, TaskItem } from "../types/items";
+import DraggableList from "../components/DraggableList";
+import SearchBar from "../components/SearchBar";
 
 const DragDropContext = dynamic(
   () =>
     import("react-beautiful-dnd").then((mod) => {
       return mod.DragDropContext;
-    }),
-  { ssr: false }
-);
-const Droppable = dynamic(
-  () =>
-    import("react-beautiful-dnd").then((mod) => {
-      return mod.Droppable;
-    }),
-  { ssr: false }
-);
-const Draggable = dynamic(
-  () =>
-    import("react-beautiful-dnd").then((mod) => {
-      return mod.Draggable;
     }),
   { ssr: false }
 );
@@ -178,20 +165,6 @@ const Home: NextPage = () => {
 
   };
 
-  const getItemStyle = (isDragging: boolean, draggableStyle: any): any => ({
-    userSelect: "none",
-    margin: `0 0 ${8}px 0`,
-    ...draggableStyle,
-  });
-
-  const getListStyle = (isDraggingOver: boolean): {[key: string]: any} => ({
-    padding: 8,
-    width: 280,
-    minHeight: "600px",
-    float: "left",
-    marginRight: 30,
-  });
-
   const onAddTask = (data: TaskData) => {
     console.log(data);
     const newTask : TaskItem = {
@@ -257,9 +230,7 @@ const Home: NextPage = () => {
 
   return (
     <div>
-      <div
-        style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}
-      >
+      <div className="flex justify-center mt-5">
         {!displayForm && (
           <button
             onClick={() => setDisplayForm(true)}
@@ -272,133 +243,45 @@ const Home: NextPage = () => {
           <TaskForm onAddTask={onAddTask} onCacelForm={onCacelForm} />
         )}
       </div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <input
-          className="border rounded-md mt-4 py-2 px-4 outline-none focus:border-blue-500"
-          type="text"
-          placeholder="Search by name"
-          onChange={onSearchInput}
+      
+      <div className="flex justify-center">
+        <SearchBar
+          onSearchInput={onSearchInput}
         />
       </div>
 
-      <div
-        style={{ display: "flex", justifyContent: "center", marginTop: "40px" }}
-      >
+      <div className="flex justify-center mt-8">
         <DragDropContext onDragEnd={handleDragEnd}>
           
           <div>
-            <div className="w-40 ml-16 bg-green-300 mb-1 text-gray-700 text-center font-bold py-1">
-              To do
-            </div>
-            <Droppable droppableId="todo">
-              {(provided, snapshot) => (
-                <div
-                  ref={provided.innerRef}
-                  style={getListStyle(snapshot.isDraggingOver)}
-                >
-                  {(filteredTodoItems || itemsTodo).map((item, index) => (
-                    <Draggable key={item.id} draggableId={item.id} index={index}>
-                      {(provided, snapshot) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          style={getItemStyle(
-                            snapshot.isDragging,
-                            provided.draggableProps.style
-                          )}
-                        >
-                          <KanbanCard
-                            item={item}
-                            onDelete={onDelete}
-                            index={index}
-                            status={'TODO'}
-                          />
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
+            <DraggableList
+              label="To do"
+              onDelete={onDelete} 
+              items={filteredTodoItems || itemsTodo} 
+              id={'todo'}
+              staus={"TODO"}
+            />
           </div>
 
-          <div>
-          <div className="w-40 bg-green-300 ml-16 mb-1 text-gray-700 text-center font-bold py-1">
-              In progress
+            <div>
+              <DraggableList
+                label="In progress"
+                onDelete={onDelete} 
+                items={filteredInProgress || itemsInProgress} 
+                id={'inProgress'}
+                staus={"IN_PROGRESS"}
+              />
             </div>
-            <Droppable droppableId="inProgress">
-              {(provided, snapshot) => (
-                <div
-                  ref={provided.innerRef}
-                  style={getListStyle(snapshot.isDraggingOver)}
-                >
-                  {(filteredInProgress || itemsInProgress).map((item, index) => (
-                    <Draggable key={item.id} draggableId={item.id} index={index}>
-                      {(provided, snapshot) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          style={getItemStyle(
-                            snapshot.isDragging,
-                            provided.draggableProps.style
-                          )}
-                        >
-                          <KanbanCard
-                            item={item}
-                            onDelete={onDelete}
-                            index={index}
-                            status={'IN_PROGRESS'}
-                          />
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </div>
 
-          <div>
-          <div className="w-40 bg-green-300  ml-16 mb-1 text-gray-700 text-center font-bold py-1">
-              Completed
+            <div>
+              <DraggableList
+                label="Completed"
+                onDelete={onDelete} 
+                items={filteredItemsCompleted || itemsCompleted} 
+                id={'completed'}
+                staus={"COMPLETED"}
+              />
             </div>
-            <Droppable droppableId="completed">
-              {(provided, snapshot) => (
-                <div
-                  ref={provided.innerRef}
-                  style={getListStyle(snapshot.isDraggingOver)}
-                >
-                  {(filteredItemsCompleted || itemsCompleted).map((item: any, index: number) => (
-                    <Draggable key={item.id} draggableId={item.id} index={index}>
-                      {(provided, snapshot) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          style={getItemStyle(
-                            snapshot.isDragging,
-                            provided.draggableProps.style
-                          )}
-                        >
-                          <KanbanCard
-                            item={item}
-                            onDelete={onDelete}
-                            index={index}
-                            status={'COMPLETED'}
-                          />
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </div>
 
         </DragDropContext>
       </div>
