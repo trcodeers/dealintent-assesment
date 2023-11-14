@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TaskForm from "../components/TakForm";
 import KanbanCard from "../components/KanbanCard";
 import dynamic from "next/dynamic";
@@ -67,6 +67,14 @@ const Home: NextPage = () => {
   ]);
   const [filteredItemsCompleted, setFilteredItemsCompleted] = useState()
 
+  const [searchValue, setSearchValue] = useState('')
+
+  useEffect(() =>{
+    if(searchValue){
+      console.log('enable again')
+      filterOnSearch(searchValue)
+    }
+  }, [itemsTodo, itemsInProgress, itemsCompleted])
 
   const handleDragEnd = (result: any) => {
     const { source, destination, draggableId } = result;
@@ -155,6 +163,11 @@ const Home: NextPage = () => {
     } else if (destination.droppableId === "completed") {
       setItemsCompleted([...destinationColumn]);
     }
+    // /if searched, filter again
+    if(searchValue) {
+      console.log('Searched value', searchValue)
+      filterOnSearch(searchValue)
+    }
   };
 
   const getItemStyle = (isDragging: any, draggableStyle: any): any => ({
@@ -191,23 +204,32 @@ const Home: NextPage = () => {
 
   const onSearchInput = (e: any) => {
     const { value } = e.target;
+    setSearchValue(value)
     if(!value){
       setFilteredTodoItems(undefined)
       setFilteredInProgress(undefined)
       setFilteredItemsCompleted(undefined)
       return
     }
-    
-    const todoFilter = itemsTodo.filter((el) => el.name.toLowerCase().includes(value))
+    filterOnSearch(value)
+  };
+
+  const filterOnSearch = (value: string) =>{
+    console.log(value, value.toLocaleLowerCase())
+    const todoFilter = itemsTodo.filter((el) => el.name.toLowerCase().includes(value.toLocaleLowerCase()))
+    console.log('filtered to do ', todoFilter)
     setFilteredTodoItems(todoFilter)
 
-    const inProgressFilter: any = itemsInProgress.filter((el) => el.name.toLowerCase().includes(value))
+    console.log(itemsInProgress)
+    const inProgressFilter: any = itemsInProgress.filter((el) => el.name.toLowerCase().includes(value.toLocaleLowerCase()))
+    console.log('in progress to do ', inProgressFilter)
     setFilteredInProgress(inProgressFilter)
 
-    const completedFilter: any = itemsCompleted.filter((el) => el.name.toLowerCase().includes(value))
+    const completedFilter: any = itemsCompleted.filter((el) => el.name.toLowerCase().includes(value.toLocaleLowerCase()))
+    console.log('completed filter to do ', completedFilter)
     setFilteredItemsCompleted(completedFilter)
  
-  };
+  }
 
   const onDelete = (item: any, index: number, status: string) => {
     console.log(item);
