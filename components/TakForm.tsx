@@ -1,10 +1,17 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { TaskData } from "../types/items";
+import { type } from "os";
 
+type Props  = {
+    onCacelForm: () => void,
+    onAddTask: () => void
+}
 const TaskForm = ({ onCacelForm, onAddTask }: any) => {
   const { register, handleSubmit, reset } = useForm();
 
   const [minDate, setMinDate] = useState('');
+  const [inputType, setInputType] = useState('text');
 
   useEffect(() => {
     // Set the min date to today
@@ -24,6 +31,7 @@ const TaskForm = ({ onCacelForm, onAddTask }: any) => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
+    
         <div>
           <input
             className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outlin`}
@@ -48,11 +56,14 @@ const TaskForm = ({ onCacelForm, onAddTask }: any) => {
 
         <div>
             <input
-                type="date"
+                type={inputType}
                 id="datepicker"
                 className="mt-0 p-1.5 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
                 min={minDate}
                 {...register("date")}
+                placeholder="Due date"
+                onFocus={() => setInputType('date')}
+                onBlur={() => setInputType('text')}
             />
         </div>
 
