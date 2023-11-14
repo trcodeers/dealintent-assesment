@@ -66,35 +66,24 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     if (searchValue) {
-      console.log("enable again", itemsTodo);
       filterOnSearch(searchValue);
     }
   }, [itemsTodo, itemsInProgress, itemsCompleted]);
 
   const handleDragEnd = (result: any) => {
     const { source, destination, draggableId } = result;
-    console.log("src droppableId", source?.droppableId);
-    console.log("destination droppableId", destination?.droppableId);
-    console.log("src index", source?.index);
-    console.log("destination droppableId", destination?.index);
-
     // If the card was dropped outside of a droppable area
     if (!destination) {
-      console.log("case 1");
       return;
     }
 
     // If the card was dropped in the same column
     if (source.droppableId === destination.droppableId) {
       if (source.index === destination.index) return;
-      console.log("cl todo", source.droppableId);
       if (source.droppableId === "todo") {
         const item = itemsTodo[source.index];
-        // console.log(item);
         itemsTodo.splice(source.index, 1);
-        // console.log(itemsTodo);
         itemsTodo.splice(destination.index, 0, item);
-        // console.log(itemsTodo);
         setItemsTodo([...itemsTodo]);
       } else if (source.droppableId === "inProgress") {
         const item = itemsInProgress[source.index];
@@ -115,35 +104,25 @@ const Home: NextPage = () => {
     let destinationColumn: Array<any> = [];
 
     if (source.droppableId === "todo") {
-      console.log("case 3");
       sourceColumn = [...itemsTodo];
     } else if (source.droppableId === "inProgress") {
-      console.log("case 4");
       sourceColumn = [...itemsInProgress];
     } else if (source.droppableId === "completed") {
-      console.log("case 5");
       sourceColumn = [...itemsCompleted];
     }
 
     if (destination.droppableId === "todo") {
-      console.log("case 6");
       destinationColumn = [...itemsTodo];
     } else if (destination.droppableId === "inProgress") {
-      console.log("case 7");
       destinationColumn = [...itemsInProgress];
     } else if (destination.droppableId === "completed") {
-      console.log("case 8");
       destinationColumn = [...itemsCompleted];
     }
 
     // Remove the card from the source column
     const [removed] = sourceColumn.splice(source.index, 1);
-    console.log("removed", removed);
     // Add item to destination column
     destinationColumn.splice(destination.index, 0, removed);
-
-    console.log("Up source", sourceColumn);
-    console.log("up destination", destinationColumn);
 
     // Update source data
     if (source.droppableId === "todo") {
@@ -154,7 +133,6 @@ const Home: NextPage = () => {
       setItemsCompleted([...sourceColumn]);
     }
 
-    console.log("Up destination", destinationColumn);
     // Update destination column
     if (destination.droppableId === "todo") {
       setItemsTodo([...destinationColumn]);
@@ -166,7 +144,6 @@ const Home: NextPage = () => {
   };
 
   const onAddTask = (data: TaskData) => {
-    console.log(data);
     const newTask: TaskItem = {
       id: (
         itemsTodo.length +
@@ -196,29 +173,24 @@ const Home: NextPage = () => {
   };
 
   const filterOnSearch = (value: string) => {
-    console.log(value, value.toLocaleLowerCase());
+    const lowerCaseValue = value.toLocaleLowerCase();
     const todoFilter = itemsTodo.filter((el) =>
-      el.name.toLowerCase().includes(value.toLocaleLowerCase())
+      el.name.toLowerCase().includes(lowerCaseValue)
     );
-    console.log("filtered to do ", todoFilter);
     setFilteredTodoItems(todoFilter);
 
-    console.log(itemsInProgress);
     const inProgressFilter: any = itemsInProgress.filter((el) =>
-      el.name.toLowerCase().includes(value.toLocaleLowerCase())
+      el.name.toLowerCase().includes(lowerCaseValue)
     );
-    console.log("in progress to do ", inProgressFilter);
     setFilteredInProgress(inProgressFilter);
 
     const completedFilter: any = itemsCompleted.filter((el) =>
-      el.name.toLowerCase().includes(value.toLocaleLowerCase())
+      el.name.toLowerCase().includes(lowerCaseValue)
     );
-    console.log("completed filter to do ", completedFilter);
     setFilteredItemsCompleted(completedFilter);
   };
 
   const onDelete = (item: any, index: number, status: string) => {
-    console.log(item);
     if (status === "TODO") {
       itemsTodo.splice(index, 1);
       setItemsTodo([...itemsTodo]);
