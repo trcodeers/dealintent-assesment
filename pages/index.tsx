@@ -255,39 +255,47 @@ const Home: NextPage = () => {
         style={{ display: "flex", justifyContent: "center", marginTop: "40px" }}
       >
         <DragDropContext onDragEnd={handleDragEnd}>
-          <Droppable droppableId="todo">
-            {(provided, snapshot) => (
-              <div
-                ref={provided.innerRef}
-                style={getListStyle(snapshot.isDraggingOver)}
-              >
-                {(filteredTodoItems || itemsTodo).map((item, index) => (
-                  <Draggable key={item.id} draggableId={item.id} index={index}>
-                    {(provided, snapshot) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        style={getItemStyle(
-                          snapshot.isDragging,
-                          provided.draggableProps.style
-                        )}
-                      >
-                        <KanbanCard
-                          item={item}
-                          onDelete={onDelete}
-                          index={index}
-                          status={'TODO'}
-                        />
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
+          
+          <div>
+            <div className="bg-pink-50 text-black text-center font-bold py-1">
+              To do
+            </div>
+            <Droppable droppableId="todo">
+              {(provided, snapshot) => (
+                <div
+                  ref={provided.innerRef}
+                  style={getListStyle(snapshot.isDraggingOver)}
+                >
+                  {(filteredTodoItems || itemsTodo).map((item, index) => (
+                    <Draggable key={item.id} draggableId={item.id} index={index}>
+                      {(provided, snapshot) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          style={getItemStyle(
+                            snapshot.isDragging,
+                            provided.draggableProps.style
+                          )}
+                        >
+                          <KanbanCard
+                            item={item}
+                            onDelete={onDelete}
+                            index={index}
+                            status={'TODO'}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </div>
 
+          <div>
+            <div>In Progress</div>
           <Droppable droppableId="inProgress">
             {(provided, snapshot) => (
               <div
@@ -320,39 +328,44 @@ const Home: NextPage = () => {
               </div>
             )}
           </Droppable>
+          </div>
 
-          <Droppable droppableId="completed">
-            {(provided, snapshot) => (
-              <div
-                ref={provided.innerRef}
-                style={getListStyle(snapshot.isDraggingOver)}
-              >
-                {(filteredItemsCompleted || itemsCompleted).map((item: any, index: number) => (
-                  <Draggable key={item.id} draggableId={item.id} index={index}>
-                    {(provided, snapshot) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        style={getItemStyle(
-                          snapshot.isDragging,
-                          provided.draggableProps.style
-                        )}
-                      >
-                        <KanbanCard
-                          item={item}
-                          onDelete={onDelete}
-                          index={index}
-                          status={'COMPLETED'}
-                        />
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
+          <div>
+            <div>Completed</div>
+            <Droppable droppableId="completed">
+              {(provided, snapshot) => (
+                <div
+                  ref={provided.innerRef}
+                  style={getListStyle(snapshot.isDraggingOver)}
+                >
+                  {(filteredItemsCompleted || itemsCompleted).map((item: any, index: number) => (
+                    <Draggable key={item.id} draggableId={item.id} index={index}>
+                      {(provided, snapshot) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          style={getItemStyle(
+                            snapshot.isDragging,
+                            provided.draggableProps.style
+                          )}
+                        >
+                          <KanbanCard
+                            item={item}
+                            onDelete={onDelete}
+                            index={index}
+                            status={'COMPLETED'}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </div>
+
         </DragDropContext>
       </div>
     </div>
