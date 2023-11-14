@@ -1,8 +1,17 @@
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 const TaskForm = ({ onCacelForm, onAddTask }: any) => {
   const { register, handleSubmit, reset } = useForm();
 
+  const [minDate, setMinDate] = useState('');
+
+  useEffect(() => {
+    // Set the min date to today
+    const today = new Date().toISOString().split('T')[0];
+    setMinDate(today);
+  }, []);
+  
   const onSubmit = (data: any) => {
     // Handle form submission logic here
     console.log(data);
@@ -36,6 +45,16 @@ const TaskForm = ({ onCacelForm, onAddTask }: any) => {
               required: "Description is required",
             })}
           />
+        </div>
+
+        <div>
+            <input
+                type="date"
+                id="datepicker"
+                className="mt-0 p-1.5 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                min={minDate}
+                {...register("date")}
+            />
         </div>
 
         <div className="flex items-center justify-between">

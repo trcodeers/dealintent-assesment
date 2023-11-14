@@ -17,7 +17,7 @@ const KanbanCard = ({ item, index, onDelete, status }: any) =>{
             </div>
                 
             <div className="bg-green-200 w-32 text-gray-500 rounded-lg text-center text-xs absolute bottom-0 left-1 mb-1">
-                10 December 2023
+                {item.date}
             </div>
 
             <div className="absolute bottom-0 right-0 mb-1 mr-2">
