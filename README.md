@@ -23,7 +23,7 @@ A newly created task is located in the To-Do column, right after creating of tas
 
 There is a delete icon in the bottom right corner, clicking on that will remove the card from the board.
 
-<h6>Tech Stack,/h6>
+<h6>Tech Stack</h6>
 1. Next JS
 2. Tailwind CSS
 3. react-beautiful-dnd library
