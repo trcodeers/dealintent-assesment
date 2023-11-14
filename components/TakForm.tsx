@@ -1,26 +1,23 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { TaskData } from "../types/items";
-import { type } from "os";
 
 type Props  = {
     onCacelForm: () => void,
-    onAddTask: () => void
+    onAddTask: (teask: TaskData) => void
 }
-const TaskForm = ({ onCacelForm, onAddTask }: any) => {
+const TaskForm = ({ onCacelForm, onAddTask }: Props) => {
   const { register, handleSubmit, reset } = useForm();
 
   const [minDate, setMinDate] = useState('');
   const [inputType, setInputType] = useState('text');
 
   useEffect(() => {
-    // Set the min date to today
     const today = new Date().toISOString().split('T')[0];
     setMinDate(today);
   }, []);
   
   const onSubmit = (data: any) => {
-    console.log(data);
     onAddTask(data);
     reset();
   };
