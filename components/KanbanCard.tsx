@@ -13,7 +13,7 @@ const KanbanCard = ({ item, index, onDelete, status }: Props) => {
       <div className="px-2 py-2 text-center">
         <div className="font-bold text-l mb-2 text-center overflow-hidden line-clamp-1">{item.name}</div>
 
-        <p className="text-gray-700 text-base overflow-hidden line-clamp-2">{item.description}</p>
+        <p className="text-gray-700 text-base overflow-hidden line-clamp-3">{item.description}</p>
       </div>
 
       <div className="bg-green-200 w-32 text-gray-500 rounded-lg text-center text-xs absolute bottom-0 left-1 mb-1">

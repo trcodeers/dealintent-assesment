@@ -21,7 +21,7 @@ const Home: NextPage = () => {
     {
       id: "1",
       name: "Name 1 m m m m m m m m m m  m m m",
-      description: "This is a description 1 of name 1 mmmmmmm,,,,,,jhb hjbjhbjhbkjbkjbnk ",
+      description: "This is a dh jh jh jh jh  n mn mn mn nm mescription 1 of name 1 mmmmmmm,,,,,,jhb hjbjhbjhbkjbkjbnk ",
       date: "2023-11-12",
     },
     {
