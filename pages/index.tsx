@@ -257,7 +257,7 @@ const Home: NextPage = () => {
         <DragDropContext onDragEnd={handleDragEnd}>
           
           <div>
-            <div className="bg-pink-50 text-black text-center font-bold py-1">
+            <div className="bg-pink-50 50px text-black text-center font-bold py-1">
               To do
             </div>
             <Droppable droppableId="todo">
@@ -296,38 +296,38 @@ const Home: NextPage = () => {
 
           <div>
             <div>In Progress</div>
-          <Droppable droppableId="inProgress">
-            {(provided, snapshot) => (
-              <div
-                ref={provided.innerRef}
-                style={getListStyle(snapshot.isDraggingOver)}
-              >
-                {(filteredInProgress || itemsInProgress).map((item, index) => (
-                  <Draggable key={item.id} draggableId={item.id} index={index}>
-                    {(provided, snapshot) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        style={getItemStyle(
-                          snapshot.isDragging,
-                          provided.draggableProps.style
-                        )}
-                      >
-                        <KanbanCard
-                          item={item}
-                          onDelete={onDelete}
-                          index={index}
-                          status={'IN_PROGRESS'}
-                        />
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
+            <Droppable droppableId="inProgress">
+              {(provided, snapshot) => (
+                <div
+                  ref={provided.innerRef}
+                  style={getListStyle(snapshot.isDraggingOver)}
+                >
+                  {(filteredInProgress || itemsInProgress).map((item, index) => (
+                    <Draggable key={item.id} draggableId={item.id} index={index}>
+                      {(provided, snapshot) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          style={getItemStyle(
+                            snapshot.isDragging,
+                            provided.draggableProps.style
+                          )}
+                        >
+                          <KanbanCard
+                            item={item}
+                            onDelete={onDelete}
+                            index={index}
+                            status={'IN_PROGRESS'}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
           </div>
 
           <div>

@@ -15,11 +15,17 @@ const KanbanCard = ({ item, index, onDelete, status }: any) =>{
                 {item.description}
                 </p>
             </div>
+                
+            <div className="bg-green-200 w-32 text-gray-500 rounded-lg text-center text-xs absolute bottom-0 left-1 mb-1">
+                10 December 2023
+            </div>
 
             <div className="absolute bottom-0 right-0 mb-1 mr-2">
-                <span onClick={() =>onDelete(item, index, status)} className="inline-block bg-gray-200 rounded-full px-2 py-1 text-gray-700">
-                    <MdDelete />
-                </span>
+                <div className="flex flex-row justify-center">
+                    <div onClick={() =>onDelete(item, index, status)} className="inline-block bg-gray-200 rounded-full px-2 py-1 text-gray-700">
+                        <MdDelete />
+                    </div>
+                </div>
             </div>
  
         </div>
