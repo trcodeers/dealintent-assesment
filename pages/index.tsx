@@ -215,11 +215,11 @@ const Home: NextPage = () => {
       itemsTodo.splice(index, 1)
       setItemsTodo([ ...itemsTodo ])
     }
-    else if('IN_PROGRESS'){
+    else if(status === 'IN_PROGRESS'){
       itemsInProgress.splice(index, 1)
       setItemsInProgress([ ...itemsInProgress ])
     }
-    else if('COMPLETED'){
+    else if(status === 'COMPLETED'){
       itemsCompleted.splice(index, 1)
       setItemsCompleted([ ...itemsCompleted ])
     }
