@@ -204,7 +204,7 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div>
+    <div className="select-none">
       <div className="flex justify-center mt-5">
         {!displayForm && (
           <button
