@@ -34,6 +34,7 @@ const Home: NextPage = () => {
       id: "1",
       name: "Name 1",
       description: "This is a description 1 of name 1",
+      date: '2023-11-12'
     },
     {
       id: "2",
