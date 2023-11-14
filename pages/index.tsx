@@ -22,7 +22,7 @@ const Home: NextPage = () => {
       id: "1",
       name: "Name 1",
       description: "This is a description 1 of name 1",
-      date: '2023-11-12'
+      date: "2023-11-12",
     },
     {
       id: "2",
@@ -35,7 +35,9 @@ const Home: NextPage = () => {
       description: "This is a description 3 of name 3",
     },
   ]);
-  const [filteredTodoItems, setFilteredTodoItems] = useState<Array<TaskItem> | undefined>()
+  const [filteredTodoItems, setFilteredTodoItems] = useState<
+    Array<TaskItem> | undefined
+  >();
 
   const [itemsInProgress, setItemsInProgress] = useState<Array<TaskItem>>([
     {
@@ -49,7 +51,7 @@ const Home: NextPage = () => {
       description: "This is a description 6 of name 6",
     },
   ]);
-  const [filteredInProgress, setFilteredInProgress] = useState()
+  const [filteredInProgress, setFilteredInProgress] = useState();
 
   const [itemsCompleted, setItemsCompleted] = useState<Array<TaskItem>>([
     {
@@ -58,16 +60,16 @@ const Home: NextPage = () => {
       description: "This is the descriptipon 5 of name 5",
     },
   ]);
-  const [filteredItemsCompleted, setFilteredItemsCompleted] = useState()
+  const [filteredItemsCompleted, setFilteredItemsCompleted] = useState();
 
-  const [searchValue, setSearchValue] = useState('')
+  const [searchValue, setSearchValue] = useState("");
 
-  useEffect(() =>{
-    if(searchValue){
-      console.log('enable again', itemsTodo)
-      filterOnSearch(searchValue)
+  useEffect(() => {
+    if (searchValue) {
+      console.log("enable again", itemsTodo);
+      filterOnSearch(searchValue);
     }
-  }, [itemsTodo, itemsInProgress, itemsCompleted])
+  }, [itemsTodo, itemsInProgress, itemsCompleted]);
 
   const handleDragEnd = (result: any) => {
     const { source, destination, draggableId } = result;
@@ -94,13 +96,12 @@ const Home: NextPage = () => {
         itemsTodo.splice(destination.index, 0, item);
         // console.log(itemsTodo);
         setItemsTodo([...itemsTodo]);
-      } else if(source.droppableId === "inProgress"){
+      } else if (source.droppableId === "inProgress") {
         const item = itemsInProgress[source.index];
         itemsInProgress.splice(source.index, 1);
         itemsInProgress.splice(destination.index, 0, item);
         setItemsInProgress([...itemsInProgress]);
-      }
-      else if(source.droppableId === "completed"){
+      } else if (source.droppableId === "completed") {
         const item = itemsCompleted[source.index];
         itemsCompleted.splice(source.index, 1);
         itemsCompleted.splice(destination.index, 0, item);
@@ -110,7 +111,7 @@ const Home: NextPage = () => {
     }
 
     // Select the appropriate source and destination columns based on droppableIds
-    let sourceColumn: Array<any> = []
+    let sourceColumn: Array<any> = [];
     let destinationColumn: Array<any> = [];
 
     if (source.droppableId === "todo") {
@@ -162,12 +163,11 @@ const Home: NextPage = () => {
     } else if (destination.droppableId === "completed") {
       setItemsCompleted([...destinationColumn]);
     }
-
   };
 
   const onAddTask = (data: TaskData) => {
     console.log(data);
-    const newTask : TaskItem = {
+    const newTask: TaskItem = {
       id: (
         itemsTodo.length +
         itemsInProgress.length +
@@ -176,7 +176,7 @@ const Home: NextPage = () => {
       ).toString(),
       ...data,
     };
-    setItemsTodo([ newTask, ...itemsTodo ]);
+    setItemsTodo([newTask, ...itemsTodo]);
   };
 
   const onCacelForm = () => {
@@ -185,46 +185,49 @@ const Home: NextPage = () => {
 
   const onSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    setSearchValue(value)
-    if(!value){
-      setFilteredTodoItems(undefined)
-      setFilteredInProgress(undefined)
-      setFilteredItemsCompleted(undefined)
-      return
+    setSearchValue(value);
+    if (!value) {
+      setFilteredTodoItems(undefined);
+      setFilteredInProgress(undefined);
+      setFilteredItemsCompleted(undefined);
+      return;
     }
-    filterOnSearch(value)
+    filterOnSearch(value);
   };
 
-  const filterOnSearch = (value: string) =>{
-    console.log(value, value.toLocaleLowerCase())
-    const todoFilter = itemsTodo.filter((el) => el.name.toLowerCase().includes(value.toLocaleLowerCase()))
-    console.log('filtered to do ', todoFilter)
-    setFilteredTodoItems(todoFilter)
+  const filterOnSearch = (value: string) => {
+    console.log(value, value.toLocaleLowerCase());
+    const todoFilter = itemsTodo.filter((el) =>
+      el.name.toLowerCase().includes(value.toLocaleLowerCase())
+    );
+    console.log("filtered to do ", todoFilter);
+    setFilteredTodoItems(todoFilter);
 
-    console.log(itemsInProgress)
-    const inProgressFilter: any = itemsInProgress.filter((el) => el.name.toLowerCase().includes(value.toLocaleLowerCase()))
-    console.log('in progress to do ', inProgressFilter)
-    setFilteredInProgress(inProgressFilter)
+    console.log(itemsInProgress);
+    const inProgressFilter: any = itemsInProgress.filter((el) =>
+      el.name.toLowerCase().includes(value.toLocaleLowerCase())
+    );
+    console.log("in progress to do ", inProgressFilter);
+    setFilteredInProgress(inProgressFilter);
 
-    const completedFilter: any = itemsCompleted.filter((el) => el.name.toLowerCase().includes(value.toLocaleLowerCase()))
-    console.log('completed filter to do ', completedFilter)
-    setFilteredItemsCompleted(completedFilter)
- 
-  }
+    const completedFilter: any = itemsCompleted.filter((el) =>
+      el.name.toLowerCase().includes(value.toLocaleLowerCase())
+    );
+    console.log("completed filter to do ", completedFilter);
+    setFilteredItemsCompleted(completedFilter);
+  };
 
   const onDelete = (item: any, index: number, status: string) => {
     console.log(item);
-    if(status === 'TODO'){
-      itemsTodo.splice(index, 1)
-      setItemsTodo([ ...itemsTodo ])
-    }
-    else if(status === 'IN_PROGRESS'){
-      itemsInProgress.splice(index, 1)
-      setItemsInProgress([ ...itemsInProgress ])
-    }
-    else if(status === 'COMPLETED'){
-      itemsCompleted.splice(index, 1)
-      setItemsCompleted([ ...itemsCompleted ])
+    if (status === "TODO") {
+      itemsTodo.splice(index, 1);
+      setItemsTodo([...itemsTodo]);
+    } else if (status === "IN_PROGRESS") {
+      itemsInProgress.splice(index, 1);
+      setItemsInProgress([...itemsInProgress]);
+    } else if (status === "COMPLETED") {
+      itemsCompleted.splice(index, 1);
+      setItemsCompleted([...itemsCompleted]);
     }
   };
 
@@ -243,46 +246,42 @@ const Home: NextPage = () => {
           <TaskForm onAddTask={onAddTask} onCacelForm={onCacelForm} />
         )}
       </div>
-      
+
       <div className="flex justify-center">
-        <SearchBar
-          onSearchInput={onSearchInput}
-        />
+        <SearchBar onSearchInput={onSearchInput} />
       </div>
 
       <div className="flex justify-center mt-8">
         <DragDropContext onDragEnd={handleDragEnd}>
-          
           <div>
             <DraggableList
               label="To do"
-              onDelete={onDelete} 
-              items={filteredTodoItems || itemsTodo} 
-              id={'todo'}
+              onDelete={onDelete}
+              items={filteredTodoItems || itemsTodo}
+              id={"todo"}
               staus={"TODO"}
             />
           </div>
 
-            <div>
-              <DraggableList
-                label="In progress"
-                onDelete={onDelete} 
-                items={filteredInProgress || itemsInProgress} 
-                id={'inProgress'}
-                staus={"IN_PROGRESS"}
-              />
-            </div>
+          <div>
+            <DraggableList
+              label="In progress"
+              onDelete={onDelete}
+              items={filteredInProgress || itemsInProgress}
+              id={"inProgress"}
+              staus={"IN_PROGRESS"}
+            />
+          </div>
 
-            <div>
-              <DraggableList
-                label="Completed"
-                onDelete={onDelete} 
-                items={filteredItemsCompleted || itemsCompleted} 
-                id={'completed'}
-                staus={"COMPLETED"}
-              />
-            </div>
-
+          <div>
+            <DraggableList
+              label="Completed"
+              onDelete={onDelete}
+              items={filteredItemsCompleted || itemsCompleted}
+              id={"completed"}
+              staus={"COMPLETED"}
+            />
+          </div>
         </DragDropContext>
       </div>
     </div>
