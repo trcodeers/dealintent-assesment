@@ -209,9 +209,20 @@ const Home: NextPage = () => {
  
   };
 
-  const onDelete = (item: any, index: number) => {
+  const onDelete = (item: any, index: number, status: string) => {
     console.log(item);
-
+    if(status === 'TODO'){
+      itemsTodo.splice(index, 1)
+      setItemsTodo([ ...itemsTodo ])
+    }
+    else if('IN_PROGRESS'){
+      itemsInProgress.splice(index, 1)
+      setItemsInProgress([ ...itemsInProgress ])
+    }
+    else if('COMPLETED'){
+      itemsCompleted.splice(index, 1)
+      setItemsCompleted([ ...itemsCompleted ])
+    }
   };
 
   return (
@@ -266,6 +277,7 @@ const Home: NextPage = () => {
                           item={item}
                           onDelete={onDelete}
                           index={index}
+                          status={'TODO'}
                         />
                       </div>
                     )}
@@ -298,6 +310,7 @@ const Home: NextPage = () => {
                           item={item}
                           onDelete={onDelete}
                           index={index}
+                          status={'IN_PROGRESS'}
                         />
                       </div>
                     )}
@@ -330,6 +343,7 @@ const Home: NextPage = () => {
                           item={item}
                           onDelete={onDelete}
                           index={index}
+                          status={'COMPLETED'}
                         />
                       </div>
                     )}
