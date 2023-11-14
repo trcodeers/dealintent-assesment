@@ -23,6 +23,7 @@ const DraggableList = ({ onDelete, label, items, id, staus }: any) => {
   });
 
   const getListStyle = (isDraggingOver: boolean): { [key: string]: any } => ({
+    backgroundColor: isDraggingOver ? '#dcfce7' : '',
     padding: 8,
     width: 280,
     minHeight: "600px",

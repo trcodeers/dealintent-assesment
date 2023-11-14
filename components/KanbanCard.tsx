@@ -24,7 +24,7 @@ const KanbanCard = ({ item, index, onDelete, status }: Props) => {
         <div className="flex flex-row justify-center">
           <div
             onClick={() => onDelete(item, index, status)}
-            className="inline-block text-red-500 bg-green-100 rounded-full px-2 py-1 text-gray-700"
+            className="inline-block text-red-500 bg-green-100 rounded-full px-2 py-"
           >
             <MdDelete />
           </div>
