@@ -257,7 +257,7 @@ const Home: NextPage = () => {
         <DragDropContext onDragEnd={handleDragEnd}>
           
           <div>
-            <div className="bg-pink-50 50px text-black text-center font-bold py-1">
+            <div className="w-40 ml-16 bg-green-300 mb-1 text-gray-700 text-center font-bold py-1">
               To do
             </div>
             <Droppable droppableId="todo">
@@ -295,7 +295,9 @@ const Home: NextPage = () => {
           </div>
 
           <div>
-            <div>In Progress</div>
+          <div className="w-40 bg-green-300 ml-16 mb-1 text-gray-700 text-center font-bold py-1">
+              In progress
+            </div>
             <Droppable droppableId="inProgress">
               {(provided, snapshot) => (
                 <div
@@ -331,7 +333,9 @@ const Home: NextPage = () => {
           </div>
 
           <div>
-            <div>Completed</div>
+          <div className="w-40 bg-green-300  ml-16 mb-1 text-gray-700 text-center font-bold py-1">
+              Completed
+            </div>
             <Droppable droppableId="completed">
               {(provided, snapshot) => (
                 <div
